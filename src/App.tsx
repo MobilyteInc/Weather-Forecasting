@@ -3,9 +3,11 @@ import Autosuggest from 'react-autosuggest';
 import {Select, Table, List, Row, Col } from 'antd';
 import moment from 'moment';
 import languages from './languages';
+import 'antd/dist/antd.css';
 import './App.css';
 const { Option } = Select;
 
+//Function to get city suggestion
 const getSuggestions = value => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
@@ -16,22 +18,19 @@ const getSuggestions = value => {
   );
 };
 
-const getSuggestionValue = suggestion => suggestion.name;
-
-
 class App extends Component {
-  constructor() {
-    super();
-    this.state = { value: '', suggestions: [], ouputdata:[] };
-  }
-  onChange=(value)=>  this.findWeather(value);
-  findWeather=(cityId)=>{
+    public state = { value: '', suggestions: [], ouputdata:[], data:[] };
+    public onChange=(value)=>{
+       this.findWeather(value)
+    }
+
+//Function to find weather according to selected city
+  public findWeather = (cityId) => {
     fetch(process.env.REACT_APP_WEATHER_URL+cityId+"&"+"appid="+process.env.REACT_APP_ID)
     .then(res => res.json())
     .then( (result) => {
-        var newarray = [];
+        var newarray:any = [];
         var list = result.list;
-        var newdata = [];
         list.map((item,index)=>{
           let dateNow = item.dt_txt.split(" ");
           if(index === 0){
@@ -47,19 +46,19 @@ class App extends Component {
               }
           }
         })
-      this.setState({data:newarray});
-        if(this.state.data){
-          let dataval = Object.entries(this.state.data)
-          this.setState({ouputdata:dataval})
-        }else{ const rowVal = 0; }
-      },
-      (error) => {
-        console.log("error",error);
-      }
+        this.setState({data:newarray});
+          if(this.state.data){
+            let dataval = Object.entries(this.state.data)
+            this.setState({ouputdata:dataval})
+          }else{ const rowVal = 0; }
+        },
+        (error) => {
+          console.log("error",error);
+        }
     )
   }
 
-  render() {
+  public render(){
     const { value, suggestions, ouputdata } = this.state;
     const columns = [
       { title: "#", key: "index", render:(_,data,index)=> index },
@@ -71,33 +70,31 @@ class App extends Component {
         return item.weather.map(data=> <img src={process.env.REACT_APP_URL +data.icon+ ".png"} />)
       }}
     ];
-
     return (
       <div style={{width: '800px',margin: '0 auto',padding: '15px'}}>
-      <Select showSearch style={{ width: 200 }} placeholder="Search City" optionFilterProp="children" onChange={this.onChange}
-
-    onBlur={this.onBlur}
-    >
-    {languages.map(item=>
+      <Select showSearch style={{ width: 200 }} placeholder="Search City" optionFilterProp="children" onChange={this.onChange}>
+      {languages.map(item=>
       <Option key={item.id} value={item.id}>{item.name}</Option>
-    )}
-  </Select>
+      )}
+      </Select>
 
       <List header={<div>Header</div>} bordered dataSource={ouputdata}
       renderItem={(item,index) => (
-        <List.Item key={index} >
-          <Row style={{width:'100%'}}>
-            <Col span={24}><h2>{item[0]}</h2></Col>
-            <Col span={24}>
-              <Table dataSource={item[1]} columns={columns} rowKey={'dt'} pagination={false} style={{width:'100%'}}/>
-            </Col>
-          </Row>
-        </List.Item>
+      <List.Item key={index} >
+        <Row style={{width:'100%'}}>
+          <Col span={24}><h2>{item[0]}</h2></Col>
+          <Col span={24}>
+            <Table dataSource={item[1]} columns={columns} rowKey={'dt'} pagination={false} style={{width:'100%'}}/>
+          </Col>
+        </Row>
+      </List.Item>
       )}
       />
-      </div>
+     </div>
     );
   }
 }
 
 export default App;
+
+//END

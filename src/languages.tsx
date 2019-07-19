@@ -1,5 +1,32 @@
 const languages = [
   {
+    "id": 4887398,
+    "name": "Chicago",
+    "country": "US",
+    "coord": {
+      "lon": -87.650047,
+      "lat": 41.850029
+    }
+  },
+  {
+    "id": 7303783,
+    "name": "Sydney Mines",
+    "country": "CA",
+    "coord": {
+      "lon": -60.21767,
+      "lat": 46.236691
+    }
+  },
+  {
+    "id": 6620367,
+    "name": "Virginia Water",
+    "country": "GB",
+    "coord": {
+      "lon": -0.56651,
+      "lat": 51.403431
+    }
+  },
+  {
     "id": 1273294,
     "name": "Delhi",
     "country": "IN",
@@ -34,34 +61,7 @@ const languages = [
       "lon": 74.883331,
       "lat": 12.86667
     }
-  },
-  {
-    "id": 4887398,
-    "name": "Chicago",
-    "country": "US",
-    "coord": {
-      "lon": -87.650047,
-      "lat": 41.850029
-    }
-  },
-  {
-    "id": 7303783,
-    "name": "Sydney Mines",
-    "country": "CA",
-    "coord": {
-      "lon": -60.21767,
-      "lat": 46.236691
-    }
-  },
-  {
-    "id": 6620367,
-    "name": "Virginia Water",
-    "country": "GB",
-    "coord": {
-      "lon": -0.56651,
-      "lat": 51.403431
-    }
-  },
+  }
 ];
 
 export default languages;
