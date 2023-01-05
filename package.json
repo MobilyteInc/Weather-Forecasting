@@ -8,7 +8,7 @@
     "react": "^16.8.6",
     "react-autosuggest": "^9.4.3",
     "react-dom": "^16.8.6",
-    "react-scripts": "0.9.x"
+    "react-scripts": "5.0.x"
   },
   "devDependencies": {},
   "scripts": {
